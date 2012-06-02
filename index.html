@@ -445,14 +445,14 @@
       常见疑问与解答
     </a>
     <ul class="toc_section">
-      <li>– <a href="#FAQ-events">Catalog of Events</a></li>
-      <li>– <a href="#FAQ-tim-toady">More Than One Way To Do It</a></li>
-      <li>– <a href="#FAQ-nested">Nested Models &amp; Collections</a></li>
+      <li>– <a href="#FAQ-events">事件目录</a></li>
+      <li>– <a href="#FAQ-tim-toady">做事不止一种方式</a></li>
+      <li>– <a href="#FAQ-nested">嵌套模型与集合</a></li>
       <li>– <a href="#FAQ-bootstrap">Loading Bootstrapped Models</a></li>
-      <li>– <a href="#FAQ-extending">Extending Backbone</a></li>
-      <li>– <a href="#FAQ-mvc">Traditional MVC</a></li>
-      <li>– <a href="#FAQ-this">Binding "this"</a></li>
-      <li>– <a href="#FAQ-rails">Working with Rails</a></li>
+      <li>– <a href="#FAQ-extending">扩展Backbone</a></li>
+      <li>– <a href="#FAQ-mvc">传统MVC</a></li>
+      <li>– <a href="#FAQ-this">绑定"this"</a></li>
+      <li>– <a href="#FAQ-rails">与Rails一起使用</a></li>
     </ul>
 
     <a class="toc_title" href="#changelog">
@@ -468,26 +468,26 @@
     </p>
 
     <p>
-      Backbone.js gives structure to web applications
-      by providing <b>models</b> with key-value binding and custom events,
-      <b>collections</b> with a rich API of enumerable functions,
-      <b>views</b> with declarative event handling, and connects it all to your
-      existing API over a RESTful JSON interface.
+      Backbone.js是一个web应用的框架,
+      它提供了支持key-value绑定和自定义事件的<b>模型(models)</b>,
+      包含丰富可枚举函数API的<b>集合(collections)</b>,
+      能声明事件处理的<b>视图(views)</b>, 然后把他们和
+      RESTful风格的JSON接口通过API整合起来.
     </p>
 
     <p>
-      The project is <a href="http://github.com/documentcloud/backbone/">hosted on GitHub</a>,
-      and the <a href="docs/backbone.html">annotated source code</a> is available,
-      as well as an online <a href="test/test.html">test suite</a>,
-      an <a href="examples/todos/index.html">example application</a>,
-      a <a href="https://github.com/documentcloud/backbone/wiki/Tutorials%2C-blog-posts-and-example-sites">list of tutorials</a>
-      and a <a href="#examples">long list of real-world projects</a> that use Backbone.
-      Backbone is available for use under the <a href="http://github.com/documentcloud/backbone/blob/master/LICENSE">MIT software license</a>.
+      此项目<a href="http://github.com/documentcloud/backbone/">在Github上托管</a>,
+      并提供<a href="docs/backbone.html">带注释的源码</a>,
+      和一个在线的 <a href="test/test.html">测试套件</a>,
+      还有 <a href="examples/todos/index.html">示例程序</a>,
+      最后还有一个<a href="https://github.com/documentcloud/backbone/wiki/Tutorials%2C-blog-posts-and-example-sites">教程列表</a>
+      和一个<a href="#examples">使用Backbone的项目列表(很长)</a>.
+      Backbone可以在<a href="http://github.com/documentcloud/backbone/blob/master/LICENSE">MIT软件协议</a>下使用.
     </p>
 
     <p>
-      You can report bugs and discuss features on the
-      <a href="http://github.com/documentcloud/backbone/issues">GitHub issues page</a>,
+      您可以在<a href="http://github.com/documentcloud/backbone/issues">GitHub问题页面</a>
+      报告bugs和讨论功能需求,
       on Freenode IRC in the <tt>#documentcloud</tt> channel, post questions to the
       <a href="https://groups.google.com/forum/#!forum/backbonejs">Google Group</a>,
       add pages to the <a href="https://github.com/documentcloud/backbone/wiki">wiki</a>
@@ -496,8 +496,7 @@
 
     <p>
       <i>
-        Backbone is an open-source component of
-        <a href="http://documentcloud.org/">DocumentCloud</a>.
+        Backbone是一个<a href="http://documentcloud.org/">DocumentCloud</a>的开源组件.
       </i>
     </p>
 
@@ -562,12 +561,12 @@
       to execute them.
     </p>
 
-    <h2 id="upgrading">Upgrading to 0.9</h2>
+    <h2 id="upgrading">升级到 0.9</h2>
 
     <p>
-      Backbone's <b>0.9</b> series should be considered as a release candidate
-      for an upcoming <b>1.0</b>. Some APIs have changed, and while there is a
-      <a href="#changelog">change log</a> available, and many new features to
+      Backbone <b>0.9</b> 系列版本可以说是即将发布的 <b>1.0</b> 版的候选发布版(RC).
+      一些API已经改变, 这里有一份<a href="#changelog">更新日志</a>可供查看,
+      and many new features to
       take advantage of, there are a few specific changes where you'll need
       to take care:
     </p>
@@ -674,19 +673,19 @@ proxy.on("all", function(eventName) {
     </p>
 
 <pre>
-// Removes just the `onChange` callback.
+// 只移除`onChange`回调.
 object.off("change", onChange);
 
-// Removes all "change" callbacks.
+// 移除所有"change"回调.
 object.off("change");
 
-// Removes the `onChange` callback for all events.
+// 移除所有事件的`onChange`回调.
 object.off(null, onChange);
 
-// Removes all callbacks for `context` for all events.
+// 移除`context`所有事件的所有回调.
 object.off(null, null, context);
 
-// Removes all callbacks on `object`.
+// 移除`object`上的所有回调.
 object.off();
 </pre>
 
@@ -1384,42 +1383,42 @@ alert(JSON.stringify(collection));
 </pre>
 
     <p id="Collection-Underscore-Methods">
-      <b class="header">Underscore Methods (28)</b>
+      <b class="header">Underscore方法(28)</b>
       <br />
-      Backbone proxies to <b>Underscore.js</b> to provide 28 iteration functions
-      on <b>Backbone.Collection</b>. They aren't all documented here, but
-      you can take a look at the Underscore documentation for the full details&hellip;
+      Backbone代理了<b>Underscore.js</b>提供的28个迭代函数
+      到<b>Backbone.Collection</b>上. 它们的文档不在这里一一列出,
+      但是您可以查看Underscore的文档, 里面有详细的说明&hellip;
     </p>
 
     <ul class="small">
-      <li><a href="http://documentcloud.github.com/underscore/#each">forEach (each)</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#map">map</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#reduce">reduce (foldl, inject)</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#reduceRight">reduceRight (foldr)</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#find">find (detect)</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#filter">filter (select)</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#reject">reject</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#all">every (all)</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#any">some (any)</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#include">include</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#invoke">invoke</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#max">max</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#min">min</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#sortBy">sortBy</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#groupBy">groupBy</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#sortedIndex">sortedIndex</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#shuffle">shuffle</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#toArray">toArray</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#size">size</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#first">first</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#initial">initial</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#rest">rest</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#last">last</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#without">without</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#indexOf">indexOf</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#lastIndexOf">lastIndexOf</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#isEmpty">isEmpty</a></li>
-      <li><a href="http://documentcloud.github.com/underscore/#chain">chain</a></li>
+      <li><a href="http://learning.github.com/underscore/#each">forEach (each)</a></li>
+      <li><a href="http://learning.github.com/underscore/#map">map</a></li>
+      <li><a href="http://learning.github.com/underscore/#reduce">reduce (foldl, inject)</a></li>
+      <li><a href="http://learning.github.com/underscore/#reduceRight">reduceRight (foldr)</a></li>
+      <li><a href="http://learning.github.com/underscore/#find">find (detect)</a></li>
+      <li><a href="http://learning.github.com/underscore/#filter">filter (select)</a></li>
+      <li><a href="http://learning.github.com/underscore/#reject">reject</a></li>
+      <li><a href="http://learning.github.com/underscore/#all">every (all)</a></li>
+      <li><a href="http://learning.github.com/underscore/#any">some (any)</a></li>
+      <li><a href="http://learning.github.com/underscore/#include">include</a></li>
+      <li><a href="http://learning.github.com/underscore/#invoke">invoke</a></li>
+      <li><a href="http://learning.github.com/underscore/#max">max</a></li>
+      <li><a href="http://learning.github.com/underscore/#min">min</a></li>
+      <li><a href="http://learning.github.com/underscore/#sortBy">sortBy</a></li>
+      <li><a href="http://learning.github.com/underscore/#groupBy">groupBy</a></li>
+      <li><a href="http://learning.github.com/underscore/#sortedIndex">sortedIndex</a></li>
+      <li><a href="http://learning.github.com/underscore/#shuffle">shuffle</a></li>
+      <li><a href="http://learning.github.com/underscore/#toArray">toArray</a></li>
+      <li><a href="http://learning.github.com/underscore/#size">size</a></li>
+      <li><a href="http://learning.github.com/underscore/#first">first</a></li>
+      <li><a href="http://learning.github.com/underscore/#initial">initial</a></li>
+      <li><a href="http://learning.github.com/underscore/#rest">rest</a></li>
+      <li><a href="http://learning.github.com/underscore/#last">last</a></li>
+      <li><a href="http://learning.github.com/underscore/#without">without</a></li>
+      <li><a href="http://learning.github.com/underscore/#indexOf">indexOf</a></li>
+      <li><a href="http://learning.github.com/underscore/#lastIndexOf">lastIndexOf</a></li>
+      <li><a href="http://learning.github.com/underscore/#isEmpty">isEmpty</a></li>
+      <li><a href="http://learning.github.com/underscore/#chain">chain</a></li>
     </ul>
 
 <pre>
