@@ -1,18 +1,18 @@
-// An example Backbone application contributed by
-// [Jérôme Gravel-Niquet](http://jgn.me/). This demo uses a simple
-// [LocalStorage adapter](backbone-localstorage.js)
-// to persist Backbone models within your browser.
+// 一个Backbone的应用实例,
+// 由[Jérôme Gravel-Niquet](http://jgn.me/)提供. 此示例使用了一个简单的
+// [LocalStorage adapter](backbone-localstorage.js)(HTML5本地存储的adapter)
+// 来给Backbone的模型在浏览器中进行持久化.
 
-// Load the application once the DOM is ready, using `jQuery.ready`:
+// 一旦DOM准备好了就加载应用, 使用 `jQuery.ready`:
 $(function(){
 
-  // Todo Model
+  // Todo 模型
   // ----------
 
-  // Our basic **Todo** model has `title`, `order`, and `done` attributes.
+  // 最基本的 **Todo** 模型包含 `title`, `order`, 和 `done` 属性.
   var Todo = Backbone.Model.extend({
 
-    // Default attributes for the todo item.
+    // Todo 的默认属性.
     defaults: function() {
       return {
         title: "empty todo...",
@@ -21,78 +21,77 @@ $(function(){
       };
     },
 
-    // Ensure that each todo created has `title`.
+    // 确保所有创建的todo都有 `title` 属性.
     initialize: function() {
       if (!this.get("title")) {
         this.set({"title": this.defaults.title});
       }
     },
 
-    // Toggle the `done` state of this todo item.
+    // 切换todo的完成状态 `done`.
     toggle: function() {
       this.save({done: !this.get("done")});
     },
 
-    // Remove this Todo from *localStorage* and delete its view.
+    // 从 *localStorage* 里删掉这个todo, 并删除视图.
     clear: function() {
       this.destroy();
     }
 
   });
 
-  // Todo Collection
+  // Todo集合
   // ---------------
 
-  // The collection of todos is backed by *localStorage* instead of a remote
-  // server.
+  // Todo集合的后台使用浏览器的 *localStorage* 来取代服务器存储.
   var TodoList = Backbone.Collection.extend({
 
-    // Reference to this collection's model.
+    // 集合的模型引用.
     model: Todo,
 
-    // Save all of the todo items under the `"todos"` namespace.
+    // 在 `"todos"` 命名空间下保存所有的todo项.
     localStorage: new Store("todos-backbone"),
 
-    // Filter down the list of all todo items that are finished.
+    // 获取所有已完成的todo项.
     done: function() {
       return this.filter(function(todo){ return todo.get('done'); });
     },
 
-    // Filter down the list to only todo items that are still not finished.
+    // 获取所有仍未完成的todo项.
     remaining: function() {
       return this.without.apply(this, this.done());
     },
 
-    // We keep the Todos in sequential order, despite being saved by unordered
-    // GUID in the database. This generates the next order number for new items.
+    // 保持所有todo项的排列顺序, 尽管在本地存储里存着的是无序的GUID.
+    // 这个方法将生成下一个新todo的序号.
     nextOrder: function() {
       if (!this.length) return 1;
       return this.last().get('order') + 1;
     },
 
-    // Todos are sorted by their original insertion order.
+    // Todo都是由其原始的插入顺序进行排序的.
     comparator: function(todo) {
       return todo.get('order');
     }
 
   });
 
-  // Create our global collection of **Todos**.
+  // 创建全局的 **Todos** 集合.
   var Todos = new TodoList;
 
-  // Todo Item View
+  // Todo 视图
   // --------------
 
-  // The DOM element for a todo item...
+  // 一个todo项的DOM元素...
   var TodoView = Backbone.View.extend({
 
-    //... is a list tag.
+    //... 是一个 `<li/>` 标签.
     tagName:  "li",
 
-    // Cache the template function for a single item.
+    // 缓存一个todo的模板函数.
     template: _.template($('#item-template').html()),
 
-    // The DOM events specific to an item.
+    // 一个todo视图具体的DOM事件.
     events: {
       "click .toggle"   : "toggleDone",
       "dblclick .view"  : "edit",
@@ -101,15 +100,15 @@ $(function(){
       "blur .edit"      : "close"
     },
 
-    // The TodoView listens for changes to its model, re-rendering. Since there's
-    // a one-to-one correspondence between a **Todo** and a **TodoView** in this
-    // app, we set a direct reference on the model for convenience.
+    // Todo 视图监听模型的改变事件, 并重新渲染. 
+    // **Todo** 和 **TodoView** 在这个应用里是一一对应的.
+    // 这里为了方便, 直接设置一个模型的引用.
     initialize: function() {
       this.model.bind('change', this.render, this);
       this.model.bind('destroy', this.remove, this);
     },
 
-    // Re-render the titles of the todo item.
+    // 重新渲染 Todo 项的标题.
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
       this.$el.toggleClass('done', this.model.get('done'));
@@ -117,18 +116,18 @@ $(function(){
       return this;
     },
 
-    // Toggle the `"done"` state of the model.
+    // 改变模型的 `"done"(完成)` 状态.
     toggleDone: function() {
       this.model.toggle();
     },
 
-    // Switch this view into `"editing"` mode, displaying the input field.
+    // 把视图切换到 `"editing"(编辑)` 模式, 显示输入字段.
     edit: function() {
       this.$el.addClass("editing");
       this.input.focus();
     },
 
-    // Close the `"editing"` mode, saving changes to the todo.
+    // 关闭 `"editing"(编辑)` 模式, 保存 todo 的更改.
     close: function() {
       var value = this.input.val();
       if (!value) this.clear();
@@ -136,41 +135,41 @@ $(function(){
       this.$el.removeClass("editing");
     },
 
-    // If you hit `enter`, we're through editing the item.
+    // 如果按了 `回车`, 也算编辑完了保存更改.
     updateOnEnter: function(e) {
       if (e.keyCode == 13) this.close();
     },
 
-    // Remove the item, destroy the model.
+    // 删除这个 todo, 并销毁模型.
     clear: function() {
       this.model.clear();
     }
 
   });
 
-  // The Application
+  // 主程序
   // ---------------
 
-  // Our overall **AppView** is the top-level piece of UI.
+  // 主程序总体的 **AppView** 是UI的顶层.
   var AppView = Backbone.View.extend({
 
-    // Instead of generating a new element, bind to the existing skeleton of
-    // the App already present in the HTML.
+    // 这里不再是生成一个新的DOM元素, 
+    // 而是绑定到HTML中已经存在的元素.
     el: $("#todoapp"),
 
-    // Our template for the line of statistics at the bottom of the app.
+    // 这里的模板, 是应用底部的一行统计信息.
     statsTemplate: _.template($('#stats-template').html()),
 
-    // Delegated events for creating new items, and clearing completed ones.
+    // 委托事件来创建新 todo, 还有清除已完成的 todo.
     events: {
       "keypress #new-todo":  "createOnEnter",
       "click #clear-completed": "clearCompleted",
       "click #toggle-all": "toggleAllComplete"
     },
 
-    // At initialization we bind to the relevant events on the `Todos`
-    // collection, when items are added or changed. Kick things off by
-    // loading any preexisting todos that might be saved in *localStorage*.
+    // 通过初始化方法, 来绑定相关事件到 `Todos` 集合,
+    // 如一个 todo 项被创建或者改变. 
+    // 最后读取之前存在 *localStorage* 里的 todo 项.
     initialize: function() {
 
       this.input = this.$("#new-todo");
@@ -186,8 +185,8 @@ $(function(){
       Todos.fetch();
     },
 
-    // Re-rendering the App just means refreshing the statistics -- the rest
-    // of the app doesn't change.
+    // 重新渲染应用只是刷新统计信息而已 --
+    // 其他部分并没有任何变化.
     render: function() {
       var done = Todos.done().length;
       var remaining = Todos.remaining().length;
@@ -204,20 +203,20 @@ $(function(){
       this.allCheckbox.checked = !remaining;
     },
 
-    // Add a single todo item to the list by creating a view for it, and
-    // appending its element to the `<ul>`.
+    // 增加一个 todo 项到列表中, 并给它创建一个视图,
+    // 然后把其DOM元素追加到 `<ul>` 里.
     addOne: function(todo) {
       var view = new TodoView({model: todo});
       this.$("#todo-list").append(view.render().el);
     },
 
-    // Add all items in the **Todos** collection at once.
+    // 一次性往 **Todos** 里添加所有 todo 项.
     addAll: function() {
       Todos.each(this.addOne);
     },
 
-    // If you hit return in the main input field, create new **Todo** model,
-    // persisting it to *localStorage*.
+    // 如果在输入字段里按了回车, 创建一个新的 **Todo** 模型,
+    // 并把他持久化到 *localStorage* 里.
     createOnEnter: function(e) {
       if (e.keyCode != 13) return;
       if (!this.input.val()) return;
@@ -226,7 +225,7 @@ $(function(){
       this.input.val('');
     },
 
-    // Clear all done todo items, destroying their models.
+    // 清除所有完成的 todo 项, 并销毁所有的模型.
     clearCompleted: function() {
       _.each(Todos.done(), function(todo){ todo.clear(); });
       return false;
@@ -239,7 +238,7 @@ $(function(){
 
   });
 
-  // Finally, we kick things off by creating the **App**.
+  // 最后, 我们创建一个 **App** 就完事了.
   var App = new AppView;
 
 });
