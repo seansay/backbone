@@ -1,6 +1,6 @@
 // 一个Backbone的应用实例,
 // 由[Jérôme Gravel-Niquet](http://jgn.me/)提供. 此示例使用了一个简单的
-// [LocalStorage adapter](backbone-localstorage.js)(HTML5本地存储的adapter)
+// [LocalStorage adapter](backbone-localstorage.html)(HTML5本地存储的adapter)
 // 来给Backbone的模型在浏览器中进行持久化.
 
 // 一旦DOM准备好了就加载应用, 使用 `jQuery.ready`:
