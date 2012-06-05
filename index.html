@@ -2444,12 +2444,11 @@ var model = localBackbone.Model.extend(...);
     <h2 id="examples-documentcloud">DocumentCloud</h2>
 
     <p>
-      The <a href="http://www.documentcloud.org/public/#search/">DocumentCloud workspace</a>
-      is built on Backbone.js, with <i>Documents</i>, <i>Projects</i>,
-      <i>Notes</i>, and <i>Accounts</i> all as Backbone models and collections.
-      If you're interested in history &mdash; both Underscore.js and Backbone.js
-      were originally extracted from the DocumentCloud codebase, and packaged
-      into standalone JS libraries.
+      <a href="http://www.documentcloud.org/public/#search/">DocumentCloud工作区</a>
+      是基于Backbone.js的, 包括 <i>文档(Documents)</i>, <i>项目(Projects)</i>,
+      <i>笔记(Notes)</i>, 和 <i>账户(Accounts)</i>, 这些都是Backbone 模型和集合.
+      如果您对Underscore.js和Backbone.js的过去感兴趣, 您应该知道
+      这两个框架都是从DocumentCloud代码里提取出来, 然后作为独立的JS库的.
     </p>
 
     <div style="text-align: center;">
@@ -2461,12 +2460,10 @@ var model = localBackbone.Model.extend(...);
     <h2 id="examples-rdio">Rdio</h2>
 
     <p>
-      <a href="http://rdio.com/new">New Rdio</a> was developed from the ground 
-      up with a component based framework based on Backbone.js. Every component 
-      on the screen is dynamically loaded and rendered, with data provided by the 
-      <a href="http://developer.rdio.com/">Rdio API</a>. When changes are pushed, 
-      every component can update itself without reloading the page or interrupting 
-      the user's music. All of this relies on Backbone's views and models, 
+      <a href="http://rdio.com/new">新Rdio</a> 使用的是用一个基于Backbone.js的组件框架.
+      屏幕上显示的每个组件都是根据<a href="http://developer.rdio.com/">Rdio API</a>提供的数据来动态加载和渲染的, 
+      当有变化时, 每一个组件都会自动更新而不重新加载页面, 也不会打断用户听音乐.
+      所有这些都依赖于Backbone的视图和模型,
       and all URL routing is handled by Backbone's Router. When data changes are 
       signaled in realtime, Backbone's Events notify the interested components 
       in the data changes. Backbone forms the core of the new, dynamic, realtime 
